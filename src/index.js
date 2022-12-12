@@ -56,8 +56,23 @@ const light1 = new DirectionalLight(
 //vytvoření cesty
 
 //vykreslení křivky
+var freza = MeshBuilder.CreateCylinder("freza", { diameter: 0.00001 });
+
+SceneLoader.ImportMesh("", "public/", "gitbox.obj", scene, function (
+  noveModely
+) {
+  freza = noveModely[0];
+  // freza.scaling = new Vector3(0.75, 0.75, 0.75);
+});
 
 //úhly a rotace
+
+scene.registerBeforeRender(function () {
+  //sphere.position.x += 0.03;
+  //pohyb frézy
+  freza.position.x += 0.0001;
+  freza.rotate(new Vector3(0, 1, 0), (freza.rotation.y += 0.001));
+});
 
 //animace
 
